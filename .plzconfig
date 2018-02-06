@@ -1,0 +1,10 @@
+[please]
+version = 11.3.1
+selfupdate = true
+downloadlocation = https://get.please.build
+
+[python]
+defaultinterpreter = python3.6
+usepypi = true
+moduledir = third_party
+
