@@ -5,8 +5,6 @@ import logging
 
 log = logging.getLogger()
 
-BASE_URL = 'http://jenkins.thoughtmachine.net:8080/job/%s/api/python'
-
 
 class Status(Enum):
     SUCCESS = 1
@@ -27,7 +25,7 @@ def get_status_of_jobs(url, jobs):
 
 
 def get_status_from_jenkins(url, project):
-    with urllib.request.urlopen(url % project) as response:
+    with urllib.request.urlopen(createUrl(url, project)) as response:
         html = response.read().decode('UTF-8')
         info = ast.literal_eval(html)
         color = info['color']
@@ -38,3 +36,7 @@ def get_status_from_jenkins(url, project):
             return Status.SUCCESS
         else:
             return Status.FAILED
+
+
+def createUrl(url, job):
+    return url + '/job/' + job + '/api/python'
